@@ -1,3 +1,5 @@
+import { deleteMany, insertMany } from '../models/Movie.model';
+
 const movies = [
     {
       title: "A Wrinkle in Time",
@@ -86,4 +88,20 @@ const movies = [
 
   
 
+
 // ... your code here
+
+
+async function seedMovies() {
+  try {
+    await Movie.deleteMany(); // Clear existing movies
+    await Movie.insertMany(movies); // Insert new movies
+    console.log('Movies seeded successfully.');
+  } catch (error) {
+    console.error('Error seeding movies:', error);
+  } finally {
+    mongoose.disconnect();
+  }
+}
+
+seedMovies();
